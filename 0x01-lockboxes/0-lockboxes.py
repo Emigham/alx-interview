@@ -1,17 +1,32 @@
-from collections import deque
+#!/usr/bin/python3
+'''LockBoxes Challenge'''
+
 
 def canUnlockAll(boxes):
-    n = len(boxes)  # Total number of boxes
-    visited = [False] * n  # Track visited boxes
-    visited[0] = True  # Mark the first box as visited
-    queue = deque([0])  # Start BFS from the first box
+    '''determines if all the boxes can be opened or not
+    Returns:
+        True: all boxes can be opened
+        False: not all boxes can be opened
+    '''
+    length = len(boxes)
+    keys = set()
+    opened_boxes = []
+    i = 0
 
-    while queue:
-        box = queue.popleft()
-        for key in boxes[box]:
-            if not visited[key]:
-                visited[key] = True
-                queue.append(key)
+    while i < length:
+        oldi = i
+        opened_boxes.append(i)
+        keys.update(boxes[i])
+        for key in keys:
+            if key != 0 and key < length and key not in opened_boxes:
+                i = key
+                break
+        if oldi != i:
+            continue
+        else:
+            break
 
-    return all(visited)
-
+    for i in range(length):
+        if i not in opened_boxes and i != 0:
+            return False
+    return True
