@@ -35,7 +35,7 @@ if __name__ == "__main__":
                 status_code = list[-2]
                 if status_code in status_code_dict:
                     status_code_dict[status_code] += 1
-            except exception:
+            except Exception:
                 pass
 
             if line_count % 10 == 0:
